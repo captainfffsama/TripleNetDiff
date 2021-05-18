@@ -1,0 +1,5 @@
+coco_json: "/home/chiebotgpuhq/MyCode/dataset/coco/annotations/instances_val2017.json"
+train_data: "/home/chiebotgpuhq/MyCode/dataset/nanjingbisai/bj_game_20200430/train"
+ckpt_save: ""
+epochs: 10
+batch_size: 1

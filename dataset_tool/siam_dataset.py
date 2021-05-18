@@ -39,8 +39,8 @@ class SiamTripData(Dataset):
         super(SiamTripData, self).__init__()
         self.all_img_path = get_all_file_path(img_dir)
         self.patch_shift = 20
-        self.img_min_size = ((patch_size[0] + patch_shift) * 2+2,
-                             patch_size[1] + 2 * patch_shift+2)
+        self.img_min_size = ((patch_size[0] + patch_shift) * 2 + 2,
+                             patch_size[1] + 2 * patch_shift + 2)
         if not skip_check:
             self._filter_img(self.img_min_size)
         self.patch_size = patch_size
@@ -170,9 +170,8 @@ class SiamTripData(Dataset):
         neg_patch_pos = self.get_random_roi(
             img,
             self.patch_size,
-            border_limit=(img.shape[1] // 2,
-                          self.patch_shift, self.patch_shift,
-                          self.patch_shift))
+            border_limit=(img.shape[1] // 2, self.patch_shift,
+                          self.patch_shift, self.patch_shift))
         anchor_patch = img_s[anchor_patch_pos[1]:anchor_patch_pos[1] +
                              self.patch_size[1],
                              anchor_patch_pos[0]:anchor_patch_pos[0] +
@@ -193,18 +192,19 @@ class SiamTripData(Dataset):
     def __getitem__(self, idx):
         img_path = self.all_img_path[idx]
         img = cv2.imread(img_path)
-        if img.shape[1]<self.img_min_size[0] or img.shape[0] <self.img_min_size[1]:
-            img=cv2.resize(img,tuple(self.img_min_size))
+        if img.shape[1] < self.img_min_size[0] or img.shape[
+                0] < self.img_min_size[1]:
+            img = cv2.resize(img, tuple(self.img_min_size))
         img = self.shift_trans(image=img)["image"]
         if random.randint(0, 1):
-            anchor, posi, neg =self.get_no_p_sample(img)
+            anchor, posi, neg = self.get_no_p_sample(img)
         else:
-            anchor, posi, neg =self.get_p_sample(img)
+            anchor, posi, neg = self.get_p_sample(img)
 
-        anchor=self.transform(anchor)
-        posi=self.transform(posi)
-        neg=self.transform(neg)
-        return anchor,posi,neg
+        anchor = self.transform(anchor)
+        posi = self.transform(posi)
+        neg = self.transform(neg)
+        return anchor, posi, neg
 
 
 class Collector(object):
