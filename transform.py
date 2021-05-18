@@ -12,7 +12,7 @@ v1=A.Compose(
     [
         A.RandomBrightnessContrast(),
         A.RandomGamma(),
-        A.RandomSunFlare(),
+        A.RandomSunFlare(p=0.3),
     ]
 )
 
@@ -20,5 +20,5 @@ v2=A.Compose([
     A.RandomBrightnessContrast(p=1),
     A.RandomGamma(),
     A.RandomFog(),
-    A.RandomShadow(),
+    A.RandomShadow(p=0.8),
 ])

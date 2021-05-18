@@ -13,9 +13,13 @@ import numpy as np
 import albumentations as A
 import debug_tool as D
 
-t=cv2.imread("/home/chiebotgpuhq/MyCode/dataset/cruisepic/select1/2/t.jpg")[:,:,::-1]
-m=cv2.imread("/home/chiebotgpuhq/MyCode/dataset/cruisepic/select1/2/2_2#2021-05-09-16-33-30.jpg")[:,:,::-1]
+from dataset_tool.coco_dataset import COCODataset
+from dataset_tool.siam_dataset import SiamTripData
+from transform import v1, v2
 
-aug = A.Compose([A.FDA([t], beta_limit=0.01,p=1, read_fn=lambda x: x)])
-result=aug(image=m)["image"]
-D.show_img(result)
+json_path="/home/chiebotgpuhq/MyCode/dataset/coco/annotations/instances_val2017.json"
+dataset=COCODataset(json_path)
+
+dataset_1=SiamTripData("/home/chiebotgpuhq/MyCode/dataset/patrol",v1,v2,dataset)
+for data in dataset_1:
+    D.show_img(data)

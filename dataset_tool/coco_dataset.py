@@ -7,6 +7,7 @@
 
 import os
 import random
+from typing import Iterable
 
 from pycocotools.coco import COCO
 import cv2
