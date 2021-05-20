@@ -103,7 +103,7 @@ def main(args):
                             str(epoch * len(trainloader) + i), runing_loss))
                         runing_loss = 0.0
             if 0==args.local_rank:
-                torch.save(model.state_dict(),args.ckpt_save)
+                torch.save(model.state_dict(),os.path.join(args.ckpt_save,"{}.ckpt".format(str(epoch))))
 
 if __name__ == "__main__":
     args=parse_args()
